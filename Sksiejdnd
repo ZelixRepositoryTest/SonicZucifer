@@ -1,0 +1,350 @@
+repeat wait() until game:IsLoaded()
+
+local playerBjir = game.Players.LocalPlayer
+local c = playerBjir.UserId
+
+if getgenv().Setting.Key == "SonicXZucifer" and c == "5096897688" then
+if getgenv().Setting.StartFruitFarm == true then
+
+local Settings = {}
+local HttpService = game:GetService("HttpService")
+local Workspace = game:GetService("Workspace")
+
+local Notification = require(game:GetService("ReplicatedStorage").Notification)
+
+local SaveFileName = "FruitFinderSonic.json"
+
+    function HopServer()
+        local PlaceID = game.PlaceId
+        local AllIDs = {}
+        local foundAnything = ""
+        local actualHour = os.date("!*t").hour
+        local Deleted = false
+        function TPReturner()
+            local Site;
+            if foundAnything == "" then
+                Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+            else
+                Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+            end
+            local ID = ""
+            if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+                foundAnything = Site.nextPageCursor
+            end
+            local num = 0;
+            for i,v in pairs(Site.data) do
+                local Possible = true
+                ID = tostring(v.id)
+                if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                    for _,Existing in pairs(AllIDs) do
+                        if num ~= 0 then
+                            if ID == tostring(Existing) then
+                                Possible = false
+                            end
+                        else
+                            if tonumber(actualHour) ~= tonumber(Existing) then
+                                local delFile = pcall(function()
+                                    AllIDs = {}
+                                    table.insert(AllIDs, actualHour)
+                                end)
+                            end
+                        end
+                        num = num + 1
+                    end
+                    if Possible == true then
+                        table.insert(AllIDs, ID)
+                        wait()
+                        pcall(function()
+                            wait()
+                            game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                        end)
+                        wait(4)
+                    end
+                end
+            end
+        end
+        function Teleport() 
+            while wait() do
+                pcall(function()
+                    TPReturner()
+                    if foundAnything ~= "" then
+                        TPReturner()
+                    end
+                end)
+            end
+        end
+        Teleport()
+    end       
+
+repeat wait() until game.IsLoaded and (game.Players.LocalPlayer or game.Players.PlayerAdded:Wait()) and (game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait())
+if Ran then 
+    return
+else
+    getgenv().Ran = true
+end
+
+if getgenv().Ran == true then
+    for i,v in pairs(game.Workspace:GetDescendants()) do -- grabs everything from workspace
+    if v.ClassName == 'TouchTransmitter' and v.Parent.Name == 'Handle' then -- checks if it has a handle and if its a touchtransmitter
+        local BillboardGui = Instance.new('BillboardGui') -- Makes Billboardgui
+        local TextLabel = Instance.new('TextLabel') -- makes text label
+        
+        BillboardGui.Parent = v.Parent -- what the billboardgui goes into
+        BillboardGui.AlwaysOnTop = true -- if its on top or not
+        BillboardGui.Size = UDim2.new(0, 60, 0, 60) -- size of it
+        BillboardGui.StudsOffset = Vector3.new(0,2,0)
+        
+        TextLabel.Parent = BillboardGui -- putting textlabel into billboardgui
+        TextLabel.BackgroundColor3 = Color3.new(1,1,1) -- color
+        TextLabel.BackgroundTransparency = 1 -- transparency
+        TextLabel.Size = UDim2.new(1, 0, 1, 0) -- size
+        TextLabel.Text = v.Parent.Parent.Name -- what the label says
+        TextLabel.TextColor3 = Color3.new(1, 0, 0) -- color
+        TextLabel.TextScaled = true -- if the text is scaled or not
+    end
+    end
+    wait(0.5)
+    game.StarterGui:SetCore("SendNotification", {
+    Title = "---[WELCOME]---";
+    Text = ""..game.Players.LocalPlayer.DisplayName.."";
+    Duration = math.huge;
+    })
+    wait(0.1)
+    game.StarterGui:SetCore("SendNotification", {
+    Title = "---[TikTok]---";
+    Text = "callmezelix6";
+    Duration = math.huge;
+    })
+    wait(0.1) 
+    game.StarterGui:SetCore("SendNotification", {
+    Title = "---[Discord]---";
+    Text = "https://discord.gg/nNxEWn3tFg";
+    Duration = math.huge;
+    })
+end
+    wait(0.1)
+    if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Main", 9e9):FindFirstChild("ChooseTeam") then
+            --// Team
+            repeat task.wait() until game:IsLoaded()
+
+            local player = game.Players.LocalPlayer
+            repeat task.wait() until player and player:FindFirstChild("PlayerGui") and player.PlayerGui:FindFirstChild("Main")
+
+            local chooseTeam = player.PlayerGui.Main.ChooseTeam
+            local teamContainer = chooseTeam.Container
+
+            local function activateTeamButton(team)
+                for _, connection in pairs(getconnections(team.Frame.TextButton.Activated)) do
+                    connection.Function()
+                end
+            end
+
+            repeat
+                local v2 = "Pirates"
+                local teamName = string.find(v2, "Marine") and "Marines" or "Pirates"
+
+                activateTeamButton(teamContainer[teamName])
+
+                task.wait()
+            until player.Team ~= nil and game:IsLoaded()
+    wait(1)
+end
+wait(0.1)
+
+local plr = game.Players.LocalPlayer
+local chr = plr.Character
+local t = game.TweenService
+
+local bv = Instance.new("BodyVelocity")
+bv.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+bv.Velocity = Vector3.new()
+bv.Name = "bV"
+local bav = Instance.new("BodyAngularVelocity")
+bav.AngularVelocity = Vector3.new()
+bav.MaxTorque = Vector3.new(1/0, 1/0, 1/0)
+bav.Name = "bAV" 
+
+for _,v in next, workspace:GetChildren() do
+    if v.Name:find("Fruit") and (v:IsA("Model") or v:IsA("Tool")) then
+       if not v.Name:find("Fruit") and not (v:IsA("Model") or not v:IsA("Tool")) or _G.hopDeteck == true then
+        require(game:GetService("ReplicatedStorage").Notification).new("Hop 1"):Display();
+        HopServer()
+        end
+        repeat
+            local anc1 = bv:Clone()
+            anc1.Parent = chr.HumanoidRootPart
+            local anc2 = bav:Clone()
+            anc2.Parent = chr.HumanoidRootPart
+            local p = t:Create(chr.HumanoidRootPart, TweenInfo.new((plr:DistanceFromCharacter(v.Handle.Position)-1)/10792660990526442019426788, Enum.EasingStyle.Linear), {CFrame=v.Handle.CFrame + Vector3.new(1, v.Handle.Size.Y, 1)})
+            p:Play()
+            p.Completed:Wait()
+            chr.HumanoidRootPart.CFrame = v.Handle.CFrame
+            anc1:Destroy()
+            anc2:Destroy()
+            wait(1)
+        until v.Parent ~= workspace
+        wait(1)
+        local fruit = chr:FindFirstChildOfClass("Tool") and chr:FindFirstChildOfClass("Tool").Name:find("Fruit") and chr:FindFirstChildOfClass("Tool") or (function()
+            for _,fr in plr.Backpack:GetChildren() do
+                if fr.Name:find("Fruit") then
+                    return fr
+                 end 
+            end
+        end)()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit", fruit:GetAttribute("OriginalName"), fruit)
+        wait(0.5)
+function SendMessageEMBED(url, embed)
+    local http = game:GetService("HttpService")
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local data = {
+        ["embeds"] = {
+            {
+                ["title"] = embed.title,
+                ["description"] = embed.description,
+                ["color"] = embed.color,
+                ["fields"] = embed.fields,
+                ["footer"] = {
+                    ["text"] = embed.footer.text
+                }
+            }
+        }
+    }
+    local body = http:JSONEncode(data)
+    local response = request({
+        Url = url,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
+    print("Sent")
+end
+
+
+--Examples 
+
+-- Set the time zone offset for Indonesia
+local timeZoneOffset = 25200 -- 7 hours ahead of UTC
+
+local currentUnixTime = os.time()
+local currentDateTime = os.date("*t", currentUnixTime + timeZoneOffset)
+
+local formattedTime = string.format("%02d:%02d:%02d", currentDateTime.hour, currentDateTime.min, currentDateTime.sec)
+local formattedDate = string.format("%d-%02d-%02d", currentDateTime.year, currentDateTime.month, currentDateTime.day)
+
+local url = getgenv().Setting.Webhook
+
+
+if game.PlaceId == 7449423635 then
+
+local embed = {
+    ["title"] = "FRUIT FINDER",
+    ["description"] = "** Someone Get Something Fruit Form Fruit Finder **",
+    ["color"] = 10181046,
+    ["fields"] = {
+        {
+            ["name"] = "**[👤] Player Name:**",
+            ["value"] = "```"..game.Players.LocalPlayer.DisplayName.."```"
+        },
+        {
+            ["name"] = "**[🍎] Fruit Name:**",
+            ["value"] = "``` "..fruit.Name.." ```"
+        },
+        {
+            ["name"] = "**[📌] Located:**",
+            ["value"] = "``` Third Sea ```"
+        }
+    },
+    ["footer"] = {
+        ["text"] = " | "..formattedDate.." | Note : It Only Shows People Who Got Fruit From Fruit Finder"
+    }
+}
+SendMessageEMBED(url, embed)
+
+elseif game.PlaceId == 4442272183 then
+
+local embed = {
+    ["title"] = "FRUIT FINDER",
+    ["description"] = "** Someone Get Something Fruit Form Fruit Finder **",
+    ["color"] = 10181046,
+    ["fields"] = {
+        {
+            ["name"] = "**[👤] Player Name:**",
+            ["value"] = "```"..game.Players.LocalPlayer.DisplayName.."```"
+        },
+        {
+            ["name"] = "**[🍎] Fruit Name:**",
+            ["value"] = "``` "..fruit.Name.." ```"
+        },
+        {
+            ["name"] = "**[📌] Located:**",
+            ["value"] = "``` Second Sea ```"
+        }
+    },
+    ["footer"] = {
+        ["text"] = " | "..formattedDate.." | Note : It Only Shows People Who Got Fruit From Fruit Finder"
+    }
+}
+SendMessageEMBED(url, embed)
+
+elseif game.PlaceId == 2753915549 then
+
+local embed = {
+    ["title"] = "FRUIT FINDER",
+    ["description"] = "** Someone Get Something Fruit Form Fruit Finder **",
+    ["color"] = 10181046,
+    ["fields"] = {
+        {
+            ["name"] = "**[👤] Player Name:**",
+            ["value"] = "```"..game.Players.LocalPlayer.DisplayName.."```"
+        },
+        {
+            ["name"] = "**[🍎] Fruit Name:**",
+            ["value"] = "``` "..fruit.Name.." ```"
+        },
+        {
+            ["name"] = "**[📌] Located:**",
+            ["value"] = "``` First Sea ```"
+        }
+    },
+    ["footer"] = {
+        ["text"] = " | "..formattedDate.." | Note : It Only Shows People Who Got Fruit From Fruit Finder"
+    }
+}
+SendMessageEMBED(url, embed)
+
+end
+     wait(0.1)
+    end
+end
+wait(2)
+Notification.new("<Color=Red>Wait Hop Server !!<Color=/>"):Display()
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+wait(1)
+HopServer()
+
+elseif collectAllFruit == true and not c == "5096897688" then
+
+Notification.new("<Color=Red> ANDA TIDAK MEMILIKI IZIN UNTUK MENGGUNAKAN INI <Color=/>"):Display()
+
+end
+end

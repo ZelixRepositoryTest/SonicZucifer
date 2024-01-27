@@ -2,7 +2,7 @@ repeat wait() until game:IsLoaded()
 
 local c = game.Players.LocalPlayer.UserId
 
-if getgenv().Setting.StartFruitFarm == true and getgenv().Setting.Key == "SonicXZucifer" and c == 5096897688 or c == 3229297325 then
+if getgenv().Setting.StartFruitFarm == true and getgenv().Setting.Key == "234267746vdgvsdgcshdjsadhag67734762678ghdss" and c == 5096897688 or c == 3229297325 then
 
 local Settings = {}
 local HttpService = game:GetService("HttpService")
